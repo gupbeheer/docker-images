@@ -176,7 +176,7 @@ echo "Building image using Dockerfile.'$DIST'"
 
 # BUILD THE IMAGE (replace all environment variables)
 BUILD_START=$(date '+%s')
-docker build --force-rm=$NOCACHE --no-cache=$NOCACHE $PROXY_SETTINGS -t $IMAGE_NAME -f Dockerfile.$DIST . || {
+docker build --force-rm=$NOCACHE --no-cache=$NOCACHE $PROXY_SETTINGS -t $IMAGE_NAME --platform linux/x86_64 -f Dockerfile.$DIST . || {
   echo "There was an error building the image."
   exit 1
 }
