@@ -86,10 +86,6 @@ RUN cd /u01 && ${JAVA_HOME}/bin/jar xf /u01/$FMW_PKG && cd - && \
     ${JAVA_HOME}/bin/java -jar /u01/$FMW_JAR -responseFile /u01/install.file -invPtrLoc /u01/oraInst.loc -jreLoc $JAVA_HOME -ignoreSysPrereqs -force -novalidation ORACLE_HOME=$ORACLE_HOME && \
     rm /u01/$FMW_JAR /u01/$FMW_PKG /u01/install.file && \
     rm -rf /u01/oracle/cfgtoollogs
-# RUN cd /u01 && ${JAVA_HOME}/bin/jar xf /u01/$FMW_PKG && cd - && \
-#     ${JAVA_HOME}/bin/java -jar /u01/$FMW_JAR -silent -responseFile /u01/install.file -invPtrLoc /u01/oraInst.loc -jreLoc $JAVA_HOME -ignoreSysPrereqs -force -novalidation ORACLE_HOME=$ORACLE_HOME && \
-#     rm /u01/$FMW_JAR /u01/$FMW_PKG /u01/install.file && \
-#     rm -rf /u01/oracle/cfgtoollogs
 
 # Final image stage
 FROM oraclelinux:7-slim
@@ -121,6 +117,7 @@ RUN mkdir -p /u01 && \
     mkdir /u01/oracle/properties
 
 COPY --from=builder --chown=oracle:root /u01 /u01
+COPY --from=builder ${JAVA_HOME} ${JAVA_HOME}
 
 # Copy scripts
 #-------------
